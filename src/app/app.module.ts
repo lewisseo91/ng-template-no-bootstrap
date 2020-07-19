@@ -7,6 +7,9 @@ import { LoginComponent } from './login/login.component';
 import { MainComponent } from './main/main.component';
 import { ShowcaseComponent } from './showcase/showcase.component';
 import { TabComponent } from './@shared/tab/tab.component';
+import {ModalService} from './@shared/modal/modal.service';
+import { ModalModule } from './@shared/modal/modal.module';
+import { InsertionDirective } from './@shared/modal/insertion.directive';
 
 @NgModule({
   declarations: [
@@ -17,10 +20,14 @@ import { TabComponent } from './@shared/tab/tab.component';
     TabComponent
   ],
   imports: [
+    ModalModule,
     BrowserModule,
     AppRoutingModule
   ],
-  providers: [],
+  entryComponents: [
+    LoginComponent
+  ],
+  providers: [ModalService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

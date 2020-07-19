@@ -127,5 +127,8 @@
       }
     }
   },
-  "defaultProject": "ng-template-dh-v9"
+  "defaultProject": "ng-template-dh-v9",
+  "cli": {
+    "analytics": "0c0c8a72-5fe4-4e7c-8eee-2316044accff"
+  }
 }
