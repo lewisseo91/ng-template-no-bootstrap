@@ -9,6 +9,7 @@ import {
 } from '@angular/core';
 import { ModalComponent } from './modal.component';
 import { ModalModule } from './modal.module';
+import { ModalRef } from './modal-ref';
 
 @Injectable({
   providedIn: ModalModule,
@@ -19,21 +20,27 @@ export class ModalService {
   constructor(
     private componentFactoryResolver: ComponentFactoryResolver,
     private appRef: ApplicationRef,
-    private injector: Injector
+    private injector: Injector,
+    private modalRef: ModalRef,
   ) {}
 
   private appendModalComponentToBody() {
+
     const modalComponentFactory = this.componentFactoryResolver.resolveComponentFactory(ModalComponent);
     const componentRef = modalComponentFactory.create(this.injector);
     this.appRef.attachView(componentRef.hostView);
 
     const domElem = (componentRef.hostView as EmbeddedViewRef<any>).rootNodes[0] as HTMLElement;
-    // const customElem = (this.componentFactoryResolver.resolveComponentFactory(ModalComponent).create(this.injector).hostView as EmbeddedViewRef<any>).rootNodes[0] as HTMLElement;
-
-    // customElem.appendChild(domElem);
     document.body.appendChild(domElem);
 
     this.modalComponentRef = componentRef;
+
+    const sub = this.modalRef.afterClosed.subscribe(() => {
+      this.removeModalComponentFromBody();
+      sub.unsubscribe();
+    })
+
+    return this.modalRef;
   }
 
   private removeModalComponentFromBody() {
@@ -42,13 +49,23 @@ export class ModalService {
   }
 
   public open(componentType: Type<any>) {
-    // componentType: Type<any>
-    this.appendModalComponentToBody();
+    const modalRef = this.appendModalComponentToBody();
 
     this.modalComponentRef.instance.childComponentType = componentType;
+
+
+    return modalRef;
   }
 
-  public close() {
-    this.removeModalComponentFromBody();
-  }
+  // public close() {
+  //   const sub = this.modalRef.afterClosed.subscribe(() => {
+  //     this.removeModalComponentFromBody();
+  //     sub.unsubscribe();
+  //   })
+
+  //   this.modalComponentRef.instance.onClose.subscribe(() => {
+  //   });
+
+  //   return this.modalRef;
+  // }
 }

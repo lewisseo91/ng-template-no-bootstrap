@@ -1,8 +1,11 @@
 import { Component } from '@angular/core';
 import { Observable } from 'rxjs';
 import { fromEvent } from 'rxjs';
-import {ModalService} from './@shared/modal/modal.service';
+import { ModalService } from './@shared/modal/modal.service';
+
 import {LoginComponent} from './login/login.component';
+import { ModalRef } from './@shared/modal/modal-ref';
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -10,17 +13,25 @@ import {LoginComponent} from './login/login.component';
 })
 export class AppComponent {
   title = 'ng-template-dh-v9';
-  constructor(private modalService: ModalService) {
+  constructor(
+    private modalService: ModalService,
+    // private modalRef: ModalRef,
+  ) {
     // const modalOpen = Observable.create();
     // modalOpen.fromEvent(this.modalEl, 'click');
   }
 
   showModal() {
-    this.modalService.open(LoginComponent);
+    const ref = this.modalService.open(LoginComponent);
+    const closeEvent = ref.afterClosed.subscribe(() => {
+      console.log('closed');
+      closeEvent.unsubscribe();
+    })
   }
 
   hideModal() {
-    this.modalService.close();
+    
+    // this.modalRef.close();
   }
   
 }

@@ -1,6 +1,7 @@
 import { Component, OnInit, AfterViewInit, OnDestroy, ComponentRef, Type, ViewChild, ComponentFactoryResolver, ChangeDetectorRef } from '@angular/core';
 import { Subject } from 'rxjs';
 import { InsertionDirective } from './insertion.directive';
+import { ModalRef } from './modal-ref';
 
 
 @Component({
@@ -23,6 +24,7 @@ export class ModalComponent implements OnInit, OnDestroy, AfterViewInit {
   constructor(
     private componentFactoryResolver: ComponentFactoryResolver,
     private cd: ChangeDetectorRef,
+    private modalRef: ModalRef,
     ) {}
 
   ngOnInit() {}
@@ -40,6 +42,7 @@ export class ModalComponent implements OnInit, OnDestroy, AfterViewInit {
 
   onOverlayClicked(evt: MouseEvent) {
     // close the dialog
+    this.modalRef.close();
   }
 
   onDialogClicked(evt: MouseEvent) {
@@ -53,6 +56,10 @@ export class ModalComponent implements OnInit, OnDestroy, AfterViewInit {
     viewContainerRef.clear();
 
     this.componentRef = viewContainerRef.createComponent(componentFactory);
+  }
+
+  close() {
+    this._onClose.next();
   }
 
 }

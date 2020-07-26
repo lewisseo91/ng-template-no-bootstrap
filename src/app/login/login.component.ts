@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ModalService } from '../@shared/modal/modal.service';
+import { ModalRef } from '../@shared/modal/modal-ref';
 
 @Component({
   selector: 'app-login',
@@ -8,13 +9,16 @@ import { ModalService } from '../@shared/modal/modal.service';
 })
 export class LoginComponent implements OnInit {
 
-  constructor(private modalService: ModalService) { }
+  constructor(
+    private modalService: ModalService,
+    private modalRef: ModalRef,
+  ) { }
 
   ngOnInit() {
   }
 
   modalClose() {
-    this.modalService.close();
+    this.modalRef.close();
   }
 
 }
