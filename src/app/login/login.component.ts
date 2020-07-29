@@ -18,7 +18,8 @@ export class LoginComponent implements OnInit {
   }
 
   modalClose() {
-    this.modalRef.close();
+    const data = 'data transfer';
+    this.modalRef.close(data);
   }
 
 }

@@ -23,8 +23,8 @@ export class AppComponent {
 
   showModal() {
     const ref = this.modalService.open(LoginComponent);
-    const closeEvent = ref.afterClosed.subscribe(() => {
-      console.log('closed');
+    const closeEvent = ref.afterClosed.subscribe((data) => {
+      console.log(data);
       closeEvent.unsubscribe();
     })
   }
