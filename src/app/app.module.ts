@@ -10,17 +10,18 @@ import { TabComponent } from './@shared/tab/tab.component';
 import {ModalService} from './@shared/modal/modal.service';
 import { ModalModule } from './@shared/modal/modal.module';
 import { InsertionDirective } from './@shared/modal/insertion.directive';
+import { MainModule } from './main/main.module';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    MainComponent,
     ShowcaseComponent,
     TabComponent
   ],
   imports: [
     ModalModule,
+    MainModule,
     BrowserModule,
     AppRoutingModule
   ],

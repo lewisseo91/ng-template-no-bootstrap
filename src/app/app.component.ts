@@ -20,18 +20,5 @@ export class AppComponent {
     // const modalOpen = Observable.create();
     // modalOpen.fromEvent(this.modalEl, 'click');
   }
-
-  showModal() {
-    const ref = this.modalService.open(LoginComponent);
-    const closeEvent = ref.afterClosed.subscribe((data) => {
-      console.log(data);
-      closeEvent.unsubscribe();
-    })
-  }
-
-  hideModal() {
-    
-    // this.modalRef.close();
-  }
   
 }
